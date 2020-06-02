@@ -39,8 +39,6 @@ int main(void) {
 //    }
     sort_arr(&arr);
     show_arr(&arr);
-    inverion_arr(&arr);
-    show_arr(&arr);
     return 0;
 }
 
