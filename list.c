@@ -88,6 +88,52 @@ void sort_list(PNODE pHead)
     return;
 }
 
+bool insert_list(PNODE pHead, int pos,int val)
+{
+    int i = 0;
+    int len = length_list(pHead);
+    if(pos > len + 1 || pos <= 0)
+    {
+        printf("POS值不能小于零或大于%d!\n",len+1);
+        return false;
+    }
+    PNODE p = pHead;
+    while(NULL != p && i < pos-1)
+    {
+        p = p->pNext;
+        i++;
+    }
+    PNODE pNew = (PNODE)malloc(sizeof(NODE));
+    if(NULL == pNew)
+    {
+        printf("动态分配内存失败！\n");
+        exit(-1);
+    }
+    pNew->data = val;
+    pNew->pNext = p->pNext;
+    p->pNext = pNew;
+    return true;
+}
+
+void delete_list(PNODE pHead, int pos)
+{
+    int len = length_list(pHead);
+    int i = 0;
+    PNODE p = pHead;
+    if(pos > len || pos <= 0)
+    {
+        printf("POS值不能小于零或大于%d!\n",len);
+        return false;
+    }
+
+    while(NULL != p && i < pos-1)
+    {
+        p = p->pNext;
+        i++;
+    }
+    p->pNext = p->pNext->pNext;
+}
+
 int main(void)
 {
     PNODE pHead = NULL;
@@ -96,6 +142,11 @@ int main(void)
     int len = length_list(pHead);
     printf("链表长度为%d!\n",len);
     sort_list(pHead);
+    traverse_list(pHead);
+    insert_list(pHead,4,99);
+    printf("%d\n",length_list(pHead));
+    traverse_list(pHead);
+    delete_list(pHead,3);
     traverse_list(pHead);
     /*
     if(is_empty(pHead)){
